@@ -13,25 +13,19 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.movieapp.R;
-import com.example.movieapp.api.Network;
 import com.example.movieapp.models.Headers;
 import com.example.movieapp.models.HorizontalMovie;
 import com.example.movieapp.models.Movies;
 import com.example.movieapp.models.Response;
 import com.example.movieapp.models.VerticalMovies;
 import com.squareup.picasso.Picasso;
-
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class HomeParentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public static final String BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500/";
-    private List<Movies> moviesList = new ArrayList<>();
+    private List<Movies> moviesList;
     private OnItemClickListener listener;
-
-
 
 
     public void setOnItemClickListener(OnItemClickListener listener) {

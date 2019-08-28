@@ -24,7 +24,7 @@ import com.example.movieapp.adapters.HomeParentAdapter;
 import com.example.movieapp.models.Movies;
 import com.example.movieapp.viewmodel.HomeViewModel;
 import com.google.android.material.button.MaterialButton;
-import com.squareup.picasso.Picasso;
+
 
 import java.util.List;
 
@@ -38,7 +38,6 @@ public class HomeFragment extends Fragment implements HomeParentAdapter.OnItemCl
     private SwipeRefreshLayout swipeRefreshLayout;
     private Group errorGroup;
     private HomeViewModel homeViewModel;
-    private List<Movies> moviesList;
 
 
     @Nullable
@@ -65,15 +64,14 @@ public class HomeFragment extends Fragment implements HomeParentAdapter.OnItemCl
 
         tryAgainButton.setOnClickListener(v -> homeViewModel.refreshData());
 
-        if (moviesList != null) {
-            adapter.setMoviesList(moviesList);
-        }
+
+        adapter.setMoviesList(homeViewModel.getMovies().getValue());
+        adapter.notifyDataSetChanged();
 
         return view ;
     }
 
     private Observer<List<Movies>> moviesObserver = movies -> {
-        moviesList = movies;
         adapter.setMoviesList(movies);
         adapter.notifyDataSetChanged();
     };
@@ -94,7 +92,6 @@ public class HomeFragment extends Fragment implements HomeParentAdapter.OnItemCl
     public void onDestroy() {
         super.onDestroy();
         homeViewModel = null;
-        moviesList = null;
     }
 
     @Override

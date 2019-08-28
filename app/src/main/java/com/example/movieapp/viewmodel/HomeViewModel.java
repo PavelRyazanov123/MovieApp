@@ -33,7 +33,8 @@ public class HomeViewModel extends ViewModel {
     private MutableLiveData<Boolean> isErrorVisible = new MutableLiveData<>();
 
     public HomeViewModel() {
-        Log.e(TAG, "Recreated" );
+        List<Movies> emptyList = new ArrayList<>();
+        movies.setValue(emptyList);
         refreshData();
     }
 
@@ -98,15 +99,5 @@ public class HomeViewModel extends ViewModel {
         super.onCleared();
         if (!compositeDisposable.isDisposed())
         compositeDisposable.dispose();
-    }
-
-    private List<Movies> addMovies(List<Movies> list, Movies... movies) {
-        for (Movies movie : movies) {
-            if (movie.getPosition() > list.size())
-                list.add(list.size(), movie);
-            else
-                list.add(movie.getPosition(), movie);
-        }
-        return list;
     }
 }
