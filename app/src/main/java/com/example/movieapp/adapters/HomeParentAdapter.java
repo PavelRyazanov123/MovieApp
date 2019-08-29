@@ -21,7 +21,7 @@ import com.example.movieapp.models.VerticalMovies;
 import com.squareup.picasso.Picasso;
 import java.util.List;
 
-public class HomeParentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentAdapter.BaseViewHolder> {
 
     public static final String BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500/";
     private List<Movies> moviesList;
@@ -38,7 +38,7 @@ public class HomeParentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+    public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         switch (viewType) {
             case (Movies.HEADER_TYPE):
                 return new HeaderViewHolder(
@@ -63,27 +63,9 @@ public class HomeParentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private static final String TAG = "HomeParentAdapter";
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int i) {
+    public void onBindViewHolder(@NonNull BaseViewHolder holder, int i) {
         Movies movies = moviesList.get(i);
-
-        if (movies instanceof HorizontalMovie) {
-            ChildHorizontalAdapter childHorizontalAdapter = new ChildHorizontalAdapter();
-            List<Response.MovieResponse> horizontalMovieList = ((HorizontalMovie) movies).getHorizontalMovieList();
-            childHorizontalAdapter.setHorizontalMovieList(horizontalMovieList);
-            ((HorizontalMovieViewHolder) holder).recyclerView.setAdapter(childHorizontalAdapter);
-
-            childHorizontalAdapter.setOnItemClickListener(listener);
-
-        } else if (movies instanceof Headers) {
-            ((HeaderViewHolder) holder).headerText.setText(((Headers) movies).getText());
-        } else if (movies instanceof VerticalMovies) {
-            Response.MovieResponse movieResponse = ((VerticalMovies) movies).getMoviesResponse();
-            ((VerticalMovieViewHolder) holder).vertical_movie_title.setText(movieResponse.getTitle());
-            Picasso.get()
-                    .load(BASE_IMAGE_URL + movieResponse.getBackdropPath())
-                    .into(((VerticalMovieViewHolder) holder).vertical_movie_icon);
-        }
-
+        holder.bindViewHolder(movies);
     }
 
     @Override
@@ -96,7 +78,7 @@ public class HomeParentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return moviesList.get(position).getType();
     }
 
-    public class HeaderViewHolder extends RecyclerView.ViewHolder {
+    public class HeaderViewHolder extends BaseViewHolder{
 
         TextView headerText;
 
@@ -104,18 +86,32 @@ public class HomeParentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             super(itemView);
             headerText = itemView.findViewById(R.id.header);
         }
+
+        @Override
+        public void bindViewHolder(Movies movies) {
+            headerText.setText(((Headers)movies).getText());
+        }
     }
 
-    public class HorizontalMovieViewHolder extends RecyclerView.ViewHolder {
+    public class HorizontalMovieViewHolder extends BaseViewHolder {
         RecyclerView recyclerView;
 
         public HorizontalMovieViewHolder(@NonNull View itemView) {
             super(itemView);
             recyclerView = itemView.findViewById(R.id.horizontal_recyclerView);
         }
+
+        @Override
+        public void bindViewHolder(Movies movies) {
+            ChildHorizontalAdapter childHorizontalAdapter = new ChildHorizontalAdapter();
+            List<Response.MovieResponse> horizontalMovieList = ((HorizontalMovie) movies).getHorizontalMovieList();
+            childHorizontalAdapter.setHorizontalMovieList(horizontalMovieList);
+            recyclerView.setAdapter(childHorizontalAdapter);
+            childHorizontalAdapter.setOnItemClickListener(listener);
+        }
     }
 
-    public class VerticalMovieViewHolder extends RecyclerView.ViewHolder {
+    public class VerticalMovieViewHolder extends BaseViewHolder {
 
         TextView vertical_movie_genre;
         TextView vertical_movie_title;
@@ -135,6 +131,23 @@ public class HomeParentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 listener.onItemClick(imageURL, title, story);
             });
         }
+
+        @Override
+        public void bindViewHolder(Movies movies) {
+            Response.MovieResponse movieResponse = ((VerticalMovies) movies).getMoviesResponse();
+            vertical_movie_title.setText(movieResponse.getTitle());
+            Picasso.get()
+                    .load(BASE_IMAGE_URL + movieResponse.getBackdropPath())
+                    .into(vertical_movie_icon);
+        }
+    }
+
+    public abstract class BaseViewHolder extends RecyclerView.ViewHolder{
+        public BaseViewHolder(@androidx.annotation.NonNull View itemView) {
+            super(itemView);
+        }
+        public abstract void bindViewHolder(Movies movies);
+
     }
 
     public interface OnItemClickListener {
