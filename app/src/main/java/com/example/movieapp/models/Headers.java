@@ -1,8 +1,8 @@
 package com.example.movieapp.models;
 
-public class Headers extends Movies{
+public class Headers extends Movies {
 
-    public Headers (String text, int position){
+    public Headers(String text, int position) {
         this.text = text;
         this.position = position;
     }

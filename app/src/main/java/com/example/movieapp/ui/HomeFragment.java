@@ -64,11 +64,10 @@ public class HomeFragment extends Fragment implements HomeParentAdapter.OnItemCl
 
         tryAgainButton.setOnClickListener(v -> homeViewModel.refreshData());
 
-
         adapter.setMoviesList(homeViewModel.getMovies().getValue());
         adapter.notifyDataSetChanged();
 
-        return view ;
+        return view;
     }
 
     private Observer<List<Movies>> moviesObserver = movies -> {
@@ -79,7 +78,7 @@ public class HomeFragment extends Fragment implements HomeParentAdapter.OnItemCl
     private Observer<Boolean> refreshingObserver = isRefreshing -> swipeRefreshLayout.setRefreshing(isRefreshing);
 
     private Observer<Boolean> errorGroupObserver = isError -> {
-        if (isError == true) {
+        if (isError) {
             swipeRefreshLayout.setVisibility(View.GONE);
             errorGroup.setVisibility(View.VISIBLE);
         } else {

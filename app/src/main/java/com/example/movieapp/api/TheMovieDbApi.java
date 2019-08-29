@@ -8,8 +8,7 @@ import retrofit2.http.Query;
 
 public interface TheMovieDbApi {
 
-    //api_key=befc7872520fd736c58948abb2f4a53c
 
-    @GET("3/movie/popular?api_key=befc7872520fd736c58948abb2f4a53c")
-    Observable<Response> getAll (@Query("page") int page);
+    @GET("3/movie/popular?")
+    Observable<Response> getAll(@Query("page") int page);
 }

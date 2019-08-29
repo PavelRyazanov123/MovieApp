@@ -1,11 +1,8 @@
 package com.example.movieapp.models;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class VerticalMovies extends Movies {
 
-    public VerticalMovies(Response.MovieResponse movieResponse){
+    public VerticalMovies(Response.MovieResponse movieResponse) {
         this.moviesResponse = movieResponse;
     }
 

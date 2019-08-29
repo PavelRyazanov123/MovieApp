@@ -51,7 +51,6 @@ public class HomeViewModel extends ViewModel {
     }
 
 
-
     public void refreshData() {
         compositeDisposable.add(
                 Network.getInstance()
@@ -71,9 +70,9 @@ public class HomeViewModel extends ViewModel {
                                     isRefreshing.setValue(false);
                                     isErrorVisible.setValue(false);
                                     movies.setValue(toMoviesList(result));
-                                    },
+                                },
                                 throwable -> {
-                                    Log.e(TAG, "refreshData: ",throwable );
+                                    Log.e(TAG, "refreshData: ", throwable);
                                     isRefreshing.setValue(false);
                                     isErrorVisible.setValue(true);
                                 }));
@@ -98,6 +97,6 @@ public class HomeViewModel extends ViewModel {
     protected void onCleared() {
         super.onCleared();
         if (!compositeDisposable.isDisposed())
-        compositeDisposable.dispose();
+            compositeDisposable.dispose();
     }
 }

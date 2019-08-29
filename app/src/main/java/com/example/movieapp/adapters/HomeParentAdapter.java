@@ -19,6 +19,7 @@ import com.example.movieapp.models.Movies;
 import com.example.movieapp.models.Response;
 import com.example.movieapp.models.VerticalMovies;
 import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentAdapter.BaseViewHolder> {
@@ -78,7 +79,7 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentAdapter.Ba
         return moviesList.get(position).getType();
     }
 
-    public class HeaderViewHolder extends BaseViewHolder{
+    public class HeaderViewHolder extends BaseViewHolder {
 
         TextView headerText;
 
@@ -89,7 +90,7 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentAdapter.Ba
 
         @Override
         public void bindViewHolder(Movies movies) {
-            headerText.setText(((Headers)movies).getText());
+            headerText.setText(((Headers) movies).getText());
         }
     }
 
@@ -142,10 +143,11 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentAdapter.Ba
         }
     }
 
-    public abstract class BaseViewHolder extends RecyclerView.ViewHolder{
+    public abstract class BaseViewHolder extends RecyclerView.ViewHolder {
         public BaseViewHolder(@androidx.annotation.NonNull View itemView) {
             super(itemView);
         }
+
         public abstract void bindViewHolder(Movies movies);
 
     }

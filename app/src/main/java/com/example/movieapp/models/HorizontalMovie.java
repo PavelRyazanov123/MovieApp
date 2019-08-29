@@ -7,7 +7,7 @@ public class HorizontalMovie extends Movies {
     private List<Response.MovieResponse> horizontalMovieList = new ArrayList<>();
     private int position;
 
-    public HorizontalMovie (List<Response.MovieResponse> horizontalMovieList, int position){
+    public HorizontalMovie(List<Response.MovieResponse> horizontalMovieList, int position) {
         this.horizontalMovieList = horizontalMovieList;
         this.position = position;
     }

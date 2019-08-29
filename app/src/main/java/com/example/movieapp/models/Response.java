@@ -8,16 +8,12 @@ import java.util.List;
 public class Response {
 
     @SerializedName("page")
-    @Expose
     private int page;
     @SerializedName("total_results")
-    @Expose
     private int totalResults;
     @SerializedName("total_pages")
-    @Expose
     private int totalPages;
     @SerializedName("results")
-    @Expose
     private List<MovieResponse> movieResponses = null;
 
     public int getPage() {
@@ -55,46 +51,32 @@ public class Response {
     public class MovieResponse {
 
         @SerializedName("popularity")
-        @Expose
         private float popularity;
         @SerializedName("vote_count")
-        @Expose
         private int voteCount;
         @SerializedName("video")
-        @Expose
         private boolean video;
         @SerializedName("poster_path")
-        @Expose
         private String posterPath;
         @SerializedName("id")
-        @Expose
         private int id;
         @SerializedName("adult")
-        @Expose
         private boolean adult;
         @SerializedName("backdrop_path")
-        @Expose
         private String backdropPath;
         @SerializedName("original_language")
-        @Expose
         private String originalLanguage;
         @SerializedName("original_title")
-        @Expose
         private String originalTitle;
         @SerializedName("genre_ids")
-        @Expose
         private List<Integer> genreIds = null;
         @SerializedName("title")
-        @Expose
         private String title;
         @SerializedName("vote_average")
-        @Expose
         private double voteAverage;
         @SerializedName("overview")
-        @Expose
         private String overview;
         @SerializedName("release_date")
-        @Expose
         private String releaseDate;
 
         public float getPopularity() {
